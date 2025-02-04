@@ -74,10 +74,14 @@ if [ ! -d "clewd" ]; then
     cd clewd
     bash start.sh
     cd /root
+    sed -i 's/"PassParams": false,/"PassParams": true,/g' "clewd/config.js"
+    echo -e "hoping：'PassParams'已经被修改成\033[0;33m true \033[0m喵~."
 elif [ ! -f "clewd/config.js" ]; then
     cd clewd
     bash start.sh
     cd /root
+    sed -i 's/"PassParams": false,/"PassParams": true,/g' "clewd/config.js"
+    echo -e "hoping：'PassParams'已经被修改成\033[0;33m true \033[0m喵~."
 fi
 
 if [ ! -d "SillyTavern" ]; then
