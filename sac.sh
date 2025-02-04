@@ -452,7 +452,7 @@ function clewdSettings {
         ;;
     e)
         # 修改 Superfetch
-        Superfetch_value=$(grep -oP '"Superfetch": \K[^,]*' $clewd_dir/config.js)
+        Superfetch_value=$(grep -o '"Superfetch": [^,]*' $clewd_dir/config.js | cut -d' ' -f2)
         echo -e "当前Superfetch值为\033[0;33m $Superfetch_value \033[0m"
         echo -e $Superfetch_value
         read -p "是否进行更改[y/n]" Superfetch_choice
