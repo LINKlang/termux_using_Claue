@@ -456,7 +456,7 @@ function clewdSettings {
         echo -e "当前Superfetch值为\033[0;33m $Superfetch_value \033[0m"
         echo -e $Superfetch_value
         read -p "是否进行更改[y/n]" Superfetch_choice
-        if [[ $Superfetch_choice == "Y" ] || [ $Superfetch_choice == "y" ]]; then
+        if [ $Superfetch_choice == "Y" ] || [ $Superfetch_choice == "y" ]; then
             if [[ "$Superfetch_value" == "false" ]]; then
                 #将false替换为true
                 sed -i 's/"Superfetch": false/"Superfetch": true/g' "$clewd_dir/config.js"
