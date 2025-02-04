@@ -209,16 +209,16 @@ function clewdSettings {
             read -p "请输入识别码:" Identifiers
             sed -i "s#\"rProxy\": \".*\",#\"rProxy\": \"https://www.clewd.pro/$Identifiers\",#g" "$clewd_dir/config.js"
             Superfetch_value=$(grep -oP '"Superfetch": \K[^,]*' clewd/config.js)
-            echo -e "当前Superfetch值为\033[0;33m $Superfetch \033[0m"
+            echo -e "当前Superfetch值为\033[0;33m $Superfetch_value \033[0m"
             read -p "免梯需要让Superfetch为false，是否进行更改[y/n]" Superfetch_choice
             if [ $Superfetch_choice == "Y" ] || [ $Superfetch_choice == "y" ]; then
                 if [ $Superfetch_value == 'false' ]; then
                     #将false替换为true
-                    sed -i 's/"Superfetch": false,/"Superfetch": true,/g' $clewd_dir/config.js
+                    sed -i 's/"Superfetch": false/"Superfetch": true/g' "$clewd_dir/config.js"
                     echo -e "hoping：'Superfetch'已经被修改成\033[0;33m true \033[0m喵~."
                 elif [ $Superfetch_value == 'true' ]; then
                     #将true替换为false
-                    sed -i 's/"Superfetch": true,/"Superfetch": false,/g' $clewd_dir/config.js
+                    sed -i 's/"Superfetch": true/"Superfetch": false/g' "$clewd_dir/config.js"
                     echo -e "hoping：'Superfetch'值已经被修改成\033[0;33m false \033[0m喵~."
                 else
                     echo -e "呜呜X﹏X\nhoping喵未能找到'Superfetch'."
@@ -457,11 +457,11 @@ function clewdSettings {
         if [ $Superfetch_choice == "Y" ] || [ $Superfetch_choice == "y" ]; then
             if [ $Superfetch_value == 'false' ]; then
                 #将false替换为true
-                sed -i 's/"Superfetch": false,/"Superfetch": true,/g' $clewd_dir/config.js
+                sed -i 's/"Superfetch": false/"Superfetch": true/g' "$clewd_dir/config.js"
                 echo -e "hoping：'Superfetch'已经被修改成\033[0;33m true \033[0m喵~."
             elif [ $Superfetch_value == 'true' ]; then
                 #将true替换为false
-                sed -i 's/"Superfetch": true,/"Superfetch": false,/g' $clewd_dir/config.js
+                sed -i 's/"Superfetch": true/"Superfetch": false/g' "$clewd_dir/config.js"
                 echo -e "hoping：'Superfetch'值已经被修改成\033[0;33m false \033[0m喵~."
             else
                 echo -e "呜呜X﹏X\nhoping喵未能找到'Superfetch'."
