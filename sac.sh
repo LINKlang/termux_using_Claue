@@ -476,7 +476,7 @@ function clewdSettings {
             echo "解析到未知的值：$current_value"
             exit 1
         fi
-        sed -i "s/\"Superfetch\": *$current_value/\"Superfetch\": $new_value/" "$FILE"
+        sed -i "s/\"Superfetch\": *$current_value/\"Superfetch\": $new_value/" "$clewd_dir/config.js"
 
         if [ $? -eq 0 ]; then
             echo "已将 Superfetch 的值从 $current_value 切换为 $new_value"
