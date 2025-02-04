@@ -484,6 +484,7 @@ function clewdSettings {
             echo "更新文件时出现错误。"
             exit 1
         fi
+        ;;
     0)
         echo -e "hoping：选择更新模式(两种模式都会保留重要数据)喵~\n\033[0;33m--------------------------------------\n\033[0m\033[0;33m选项1 使用git pull进行简单更新\n\033[0m\033[0;37m选项2 几乎重新下载进行全面更新\n\033[0m"
         read -n 1 -p "" clewdup_choice
