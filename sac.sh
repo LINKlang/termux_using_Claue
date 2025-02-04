@@ -208,9 +208,10 @@ function clewdSettings {
         2)
             read -p "请输入识别码:" Identifiers
             sed -i "s#\"rProxy\": \".*\",#\"rProxy\": \"https://www.clewd.pro/$Identifiers\",#g" "$clewd_dir/config.js"
-            Superfetch_value=$(grep -oP '"Superfetch": \K[^,]*' clewd/config.js)
-            echo -e "当前Superfetch值为\033[0;33m $Superfetch_value \033[0m"
-            read -p "免梯需要让Superfetch为false，是否进行更改[y/n]" Superfetch_choice
+            Superfetch_value=$(grep -oP '"Superfetch": \K[^,]*' $clewd/config.js)
+            echo -e " 当前Superfetch值为\033[0;33m $Superfetch_value \033[0m"
+            echo $Superfetch_value
+            read -p "免梯需要让Superfetch为false 是否进行更改[y/n]" Superfetch_choice
             if [ $Superfetch_choice == "Y" ] || [ $Superfetch_choice == "y" ]; then
                 if [ $Superfetch_value == 'false' ]; then
                     #将false替换为true
