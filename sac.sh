@@ -4,12 +4,12 @@ version="Ver2.9.6"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
-latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
-clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
-clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
+latest_version=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/VERSION)
+clewd_latestversion=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
+clewd_subversion=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
 clewd_latest="$clewd_latestversion($clewd_subversion)"
-st_latest=$(curl -s https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
- saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
+st_latest=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
+ saclinkemoji=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
 # hopingmiao=hotmiao
 #
 
@@ -32,7 +32,7 @@ if command -v node &> /dev/null; then
     node --version
 else
     echo "node指令不存在，正在尝试重新下载喵~"
-    curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-arm64.tar.xz
+    curl -O https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/v20.10.0/node-v20.10.0-linux-arm64.tar.xz
     tar xf node-v20.10.0-linux-arm64.tar.xz
     echo "export PATH=\$PATH:/root/node-v20.10.0-linux-arm64/bin" >>/etc/profile
     source /etc/profile
@@ -55,11 +55,11 @@ echo "root软链接已添加，可直接在mt管理器打开root文件夹修改�
 
 if [ ! -d "SillyTavern" ]; then
     echo "SillyTavern不存在，正在通过git下载..."
-    git clone https://github.com/SillyTavern/SillyTavern SillyTavern
+    git clone https://ghproxy.net/https://github.com/SillyTavern/SillyTavern SillyTavern
     echo -e "\033[0;33m本操作仅为破限下载提供方便，所有破限皆为收录，喵喵不具有破限所有权\033[0m"
     read -p "回车进行导入破限喵~"
     rm -rf /root/st_promot
-    git clone https://github.com/hopingmiao/promot.git /root/st_promot
+    git clone https://ghproxy.net/https://github.com/hopingmiao/promot.git /root/st_promot
     if  [ ! -d "/root/st_promot" ]; then
         echo -e "(*꒦ິ⌓꒦ີ)\n\033[0;33m hoping：因网络波动预设文件下载失败了，更换网络后再试喵~\n\033[0m"
     else
@@ -70,7 +70,7 @@ fi
 
 if [ ! -d "clewd" ]; then
 	echo "clewd不存在，正在通过git下载..."
-	git clone -b test https://github.com/teralomaniac/clewd
+	git clone -b test https://ghproxy.net/https://github.com/teralomaniac/clewd
 	cd clewd
 	bash start.sh
         cd /root
@@ -198,14 +198,15 @@ function clewdSettings {
             ;;
         7)  
             # 修改 rProxy
-            echo -e "\n1. 官网地址claude.ai\n2. 国内镜像地址finechat.ai\n3. 自定义地址\n0. 不修改"
+            echo -e "\n1. 官网地址claude.ai\n2. 小水免梯地址clewd.pro\n3. 自定义地址\n0. 不修改"
             read -p "输入选择喵：" choice
             case $choice in 
                 1)  
                     sed -i 's/"rProxy": ".*",/"rProxy": "",/g' $clewd_dir/config.js
                     ;; 
                 2) 
-                    sed -i 's#"rProxy": ".*",#"rProxy": "https://chat.finechat.ai",#g' $clewd_dir/config.js
+                    read -p "请输入识别码:" Identifiers
+                    sed -i "s#\"rProxy\": \".*\",#\"rProxy\": \"https://www.clewd.pro/$Identifiers\",#g" "$clewd_dir/config.js"
                     ;; 
                 3)
                     # 读取用户输入rProxy
@@ -446,7 +447,7 @@ function clewdSettings {
 					git pull
 					;;
 				2)
-					git clone -b test https://github.com/teralomaniac/clewd.git /root/clewd_new
+					git clone -b test https://ghproxy.net/https://github.com/teralomaniac/clewd.git /root/clewd_new
 					if [ ! -d "clewd_new" ]; then
 						echo -e "(*꒦ິ⌓꒦ີ)\n\033[0;33m hoping：因为网络波动下载失败了，更换网络再试喵~\n\033[0m"
 						exit 5
@@ -510,8 +511,8 @@ hoping：选择更新正式版或者测试版喵？
 					while :
 					do
 					    read -n 1 stupdate
-					    [ "$stupdate" = 1 ] && { git clone https://github.com/SillyTavern/SillyTavern.git SillyTavern_new; break; }
-					    [ "$stupdate" = 2 ] && { git clone -b staging https://github.com/SillyTavern/SillyTavern.git SillyTavern_new; break; }
+					    [ "$stupdate" = 1 ] && { git clone https://ghproxy.net/https://github.com/SillyTavern/SillyTavern.git SillyTavern_new; break; }
+					    [ "$stupdate" = 2 ] && { git clone -b staging https://ghproxy.net/https://github.com/SillyTavern/SillyTavern.git SillyTavern_new; break; }
 					    echo -e "\n\033[5;33m选择错误，快快重新选择喵~\033[0m"
 					done
 
@@ -576,14 +577,14 @@ hoping：选择更新正式版或者测试版喵？
             ;;
         4)
             #导入破限
-            echo -e "$(curl -s https://raw.githubusercontent.com/hopingmiao/promot/main/STpromotINFO)"
+            echo -e "$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/hopingmiao/promot/main/STpromotINFO)"
             echo "是否导入当前预设喵？[y/n]"
             read choice
             if [[ "$choice" == [yY] ]]; then
                 echo -e "\033[0;33m本操作仅为破限下载提供方便，所有破限皆为收录，喵喵不具有破限所有权\033[0m"
                 sleep 2
                 rm -rf /root/st_promot
-                git clone https://github.com/hopingmiao/promot.git /root/st_promot
+                git clone https://ghproxy.net/https://github.com/hopingmiao/promot.git /root/st_promot
                 if  [ ! -d "/root/st_promot" ]; then
                     echo -e "(*꒦ິ⌓꒦ີ)\n\033[0;33m hoping：因网络波动文件下载失败了，更换网络后再试喵~\n\033[0m"
                 exit 6
@@ -670,7 +671,7 @@ function TavernAI-extrasinstall {
 	#检测环境
 	if [ ! -d "/root/TavernAI-extras" ]; then
 		echo "hoping:未检测到TavernAI-extras（酒馆拓展），正在通过git下载"
-		git clone https://github.com/Cohee1207/TavernAI-extras /root/TavernAI-extras
+		git clone https://ghproxy.net/https://github.com/Cohee1207/TavernAI-extras /root/TavernAI-extras
 		[ -d /root/TavernAI-extras ] || { echo "TavernAI-extras（酒馆拓展）安装失败，请更换网络后重试喵~"; exit 8; }
 	fi
 	
@@ -874,17 +875,35 @@ do
             sillyTavernSettings
             ;; 
 		5)
-			saclinkname=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $1 }')
+			saclinkname=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $1 }')
 			echo -e "神秘小链接会不定期悄悄更新，这次的神秘小链接是..."
 			sleep 2
 			echo $saclinkname
-			termux-open-url $(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $2 }')
+			termux-open-url $(curl -s https://ghproxy.net/https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $2 }')
 			;;
-        6)
-            # 更新脚本
-            curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
-	    echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
-            break ;;
+       6)
+            echo "请选择更新模式："
+            echo "1) 正常更新"
+            echo "2) 使用 ghproxy 更新"
+            read -p "请输入数字选择更新模式: " update_mode
+
+            case "$update_mode" in
+                1)
+                    # 模式1：正常请求
+                    curl -O https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/sac.sh
+                    ;;
+                2)
+                    # 模式2：使用 ghproxy 代理请求
+                    curl -O https://ghproxy.net/https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/sac.sh
+                    ;;
+                *)
+                    echo "无效的选择，请重新执行更新操作。"
+                    ;;
+            esac
+
+            echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
+            break
+            ;;
         *) 
             echo -e "m9( ｀д´ )!!!! \n\033[0;36m坏猫猫居然不听话，存心和我hoping喵~过不去是吧？\033[0m\n"
             ;;
