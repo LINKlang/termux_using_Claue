@@ -2,9 +2,9 @@
 
 echo "                                              
 喵喵一键安卓脚本
-作者: hoping喵，坏水秋
-来自: Claude2.1先行破限组
-群号: 704819371 / 910524479 / 304690608
+源作者: hoping喵，坏水秋
+本项目修改者: 灵嗷嗷
+来自: 类脑/Claude3.5先行破限组/小水Claude甲字号群
 类脑Discord: https://discord.gg/HWNkueX34q
 "
 
