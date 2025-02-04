@@ -208,24 +208,38 @@ function clewdSettings {
         2)
             read -p "请输入识别码:" Identifiers
             sed -i "s#\"rProxy\": \".*\",#\"rProxy\": \"https://www.clewd.pro/$Identifiers\",#g" "$clewd_dir/config.js"
-            Superfetch_value=$(grep -oP '"Superfetch": \K[^,]*' $clewd_dir/config.js)
-            echo -e " 当前Superfetch值为\033[0;33m $Superfetch_value \033[0m"
-            echo $Superfetch_value
-            read -p "免梯需要让Superfetch为false 是否进行更改[y/n]" Superfetch_choice
-            if [ $Superfetch_choice == "Y" ] || [ $Superfetch_choice == "y" ]; then
-                if [ $Superfetch_value == 'false' ]; then
-                    #将false替换为true
-                    sed -i 's/"Superfetch": false/"Superfetch": true/g' "$clewd_dir/config.js"
-                    echo -e "hoping：'Superfetch'已经被修改成\033[0;33m true \033[0m喵~."
-                elif [ $Superfetch_value == 'true' ]; then
-                    #将true替换为false
-                    sed -i 's/"Superfetch": true/"Superfetch": false/g' "$clewd_dir/config.js"
-                    echo -e "hoping：'Superfetch'值已经被修改成\033[0;33m false \033[0m喵~."
-                else
-                    echo -e "呜呜X﹏X\nhoping喵未能找到'Superfetch'."
-                fi
+            # 修改 Superfetch
+            line=$(grep '"Superfetch"' "$clewd_dir/config.js")
+            if [ -z "$line" ]; then
+                echo "未找到包含 \"Superfetch\" 的行"
+                exit 1
+            fi
+            current_value=$(echo "$line" | sed -n 's/.*"Superfetch": *\([a-z]*\).*/\1/p')
+            if [ -z "$current_value" ]; then
+                echo "无法解析 Superfetch 的值"
+                break
+            fi
+            echo "当前 Superfetch 的值为：$current_value"
+            read -p "是否需要切换其值？(y/n): " answer
+            if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+                echo "不做任何修改，退出。"
+                break
+            fi
+            if [ "$current_value" = "false" ]; then
+                new_value="true"
+            elif [ "$current_value" = "true" ]; then
+                new_value="false"
             else
-                echo "未进行修改喵~"
+                echo "解析到未知的值：$current_value"
+                break
+            fi
+            sed -i "s/\"Superfetch\": *$current_value/\"Superfetch\": $new_value/" "$clewd_dir/config.js"
+
+            if [ $? -eq 0 ]; then
+                echo "已将 Superfetch 的值从 $current_value 切换为 $new_value"
+            else
+                echo "更新文件时出现错误。"
+                break
             fi
             ;;
         3)
@@ -460,13 +474,13 @@ function clewdSettings {
         current_value=$(echo "$line" | sed -n 's/.*"Superfetch": *\([a-z]*\).*/\1/p')
         if [ -z "$current_value" ]; then
             echo "无法解析 Superfetch 的值"
-            exit 1
+            break
         fi
         echo "当前 Superfetch 的值为：$current_value"
         read -p "是否需要切换其值？(y/n): " answer
         if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
             echo "不做任何修改，退出。"
-            exit 0
+            break
         fi
         if [ "$current_value" = "false" ]; then
             new_value="true"
@@ -474,7 +488,7 @@ function clewdSettings {
             new_value="false"
         else
             echo "解析到未知的值：$current_value"
-            exit 1
+            break
         fi
         sed -i "s/\"Superfetch\": *$current_value/\"Superfetch\": $new_value/" "$clewd_dir/config.js"
 
@@ -482,7 +496,7 @@ function clewdSettings {
             echo "已将 Superfetch 的值从 $current_value 切换为 $new_value"
         else
             echo "更新文件时出现错误。"
-            exit 1
+            break
         fi
         ;;
     0)
