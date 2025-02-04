@@ -883,12 +883,12 @@ function TavernAI-extrasstart {
 # 主菜单
 echo -e "                                              
 喵喵一键脚本
-作者：hoping喵(懒喵~)，水秋喵(苦等hoping喵起床)
+源作者：hoping喵(懒喵~)，水秋喵(苦等hoping喵起床)
+本项目修改者: 灵嗷嗷
 版本：酒馆:$st_version clewd:$clewd_version 脚本:$version
 最新：\033[5;36m酒馆:$st_latest\033[0m \033[5;32mclewd:$clewd_latest\033[0m \033[0;33m脚本:$latest_version\033[0m
-来自：Claude先行破限组
-群号：704819371，910524479，304690608
-类脑Discord(角色卡发布等): https://discord.gg/HWNkueX34q
+来自: 类脑/Claude3.5先行破限组/小水Claude甲字号群
+类脑Discord: https://discord.gg/HWNkueX34q
 此程序完全免费，不允许对脚本/教程进行盗用/商用。运行时需要稳定的魔法网络环境。"
 while :; do
     echo -e "\033[0;36mhoping喵~让你选一个执行（输入数字即可），懂了吗？\033[0;38m(｡ì _ í｡)\033[0m\033[0m
