@@ -26,6 +26,7 @@ yes | apt upgrade
 DEBIAN_FRONTEND=noninteractive pkg install proot-distro -y
 
 # 导入cache
+mkdir -p /data/data/com.termux/files/usr/var/lib/proot-distro/dlcache
 curl -o "/data/data/com.termux/files/usr/var/lib/proot-distro/dlcache/ubuntu-noble-aarch64-pd-v4.18.0.tar.xz" https://ghproxy.net/https://github.com/termux/proot-distro/releases/download/v4.18.0/ubuntu-noble-aarch64-pd-v4.18.0.tar.xz
 
 # 创建并安装Ubuntu
