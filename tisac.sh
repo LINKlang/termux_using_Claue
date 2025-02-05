@@ -57,10 +57,9 @@ apt update && apt upgrade
 echo "正在为Ubuntu安装node喵~"
 if [ ! -d node-v20.10.0-linux-arm64.tar.xz ]; then
     curl -O https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/v20.10.0/node-v20.10.0-linux-arm64.tar.xz
-
-tar xf node-v20.10.0-linux-arm64.tar.xz
-
-echo "export PATH=\$PATH:/root/node-v20.10.0-linux-arm64/bin" >>$current/etc/profile
+    tar xf node-v20.10.0-linux-arm64.tar.xz
+    echo "export PATH=\$PATH:/root/node-v20.10.0-linux-arm64/bin" >>$current/etc/profile
+    
 fi
 
 if [ ! -d "SillyTavern" ]; then

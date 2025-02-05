@@ -1,9 +1,9 @@
 #!/bin/bash
 
-version="Ver3.0.0"
+version="Ver3.0.1"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
-echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
+echo "灵：卡在这里了？...说明有镜像站死了，快去找作者问吧喵~"
 latest_version=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/VERSION)
 clewd_latestversion=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
 clewd_subversion=$(curl -s https://ghproxy.net/https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
@@ -30,6 +30,12 @@ fi
 if command -v node &>/dev/null; then
     echo "node指令存在"
     node --version
+    if command -v npm &>/dev/null; then
+        echo "npm指令存在"
+        npm --version
+        echo "添加npm镜像源"
+        npm config set registry https://registry.npmmirror.com
+    fi
 else
     echo "node指令不存在，正在尝试重新下载喵~"
     curl -O https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/v20.10.0/node-v20.10.0-linux-arm64.tar.xz
@@ -42,7 +48,12 @@ else
     else
         echo "node下载失败，╮(︶﹏︶)╭，自己尝试手动下载吧"
         exit 1
-
+    fi
+    if command -v npm &>/dev/null; then
+        echo "npm指令存在"
+        npm --version
+        echo "添加npm镜像源"
+        npm config set registry https://registry.npmmirror.com
     fi
 fi
 
