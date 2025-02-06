@@ -12,7 +12,7 @@ echo -e "\033[0;31m开魔法！开魔法！开魔法！\033[0m\n"
 echo -e "\033[0;31m不开！就不开！\033[0m\n"
 echo "正在为Ubuntu更改镜像源"
 sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/apt/termux-main stable main@' $PREFIX/etc/apt/sources.list
-apt update && apt upgrade
+yes | apt update && yes | apt upgrade
 
 # read -p "确保开了魔法后按回车继续"
 

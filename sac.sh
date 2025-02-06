@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="Ver3.0.1"
+version="Ver3.0.2"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
 echo "灵：卡在这里了？...说明有镜像站死了，快去找作者问吧喵~"
