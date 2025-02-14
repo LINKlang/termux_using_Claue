@@ -91,4 +91,6 @@ echo "proot-distro login ubuntu" >>/data/data/com.termux/files/home/.bashrc
 
 source /data/data/com.termux/files/home/.bashrc
 
-exit
+echo "安装完毕，即将进入Ubuntu"
+proot-distro login ubuntu
+
