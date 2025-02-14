@@ -941,8 +941,9 @@ while :; do
 \033[0;33m选项3 Clewd设置\033[0m
 \033[0;37m选项4 酒馆设置\033[0m
 \033[0;33m选项5 神秘小链接$saclinkemoji\033[0m
+\033[0;37m选项6 重新安装node包\033[0m
 \033[0;33m--------------------------------------\033[0m
-\033[0;31m选项6 更新脚本\033[0m
+\033[0;31m选项7 更新脚本\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;35m不准选其他选项，听到了吗？
 \033[0m\n(⇀‸↼‶)"
@@ -986,6 +987,25 @@ while :; do
         termux-open-url $(curl -s https://ghproxy.net/https://raw.githubusercontent.com/LINKLang/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $2 }')
         ;;
     6)
+        #重新安装node包
+        echo -e "重新安装node包会删除node_modules文件夹，是否继续？[y/n]"
+        read choice
+        if [[ "$choice" == [yY] ]]; then
+            rm -rf /root/SillyTavern/node_modules
+            rm -rf /root/clewd/node_modules
+            echo -e "node包已删除，重新安装中..."
+            cd /root/SillyTavern
+            npm cache clean --force
+            npm install
+            cd /root/clewd
+            npm cache clean --force
+            npm install
+            echo -e "node包已重新安装，启动酒馆或者Clewd看看吧"
+        else
+            echo -e "取消重新安装node包"
+        fi
+        ;;
+    7)
         echo "请选择更新模式："
         echo "1) 正常更新"
         echo "2) 使用 ghproxy 更新"
